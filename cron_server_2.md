@@ -23,8 +23,27 @@ Chaque écriture est soumise à la tabke `DB_RAPPROCHEMENTS\user` par leur monta
     - Un justificatif blank est ajouté à `DB_JUSTIFICATIFS\user`.
 - L'écriture correspondante est supprimée de la table DB_RAPPROCHEMENTS\users`.
   
- Lorsqu'il n'existe pas de correspondance avec la table `DB_RAPPROCHEMENTS\user`, le libellé de l'écriture est soumise au fichier `user_data` 
-  afin de vérifier une co
+ Lorsqu'il n'existe pas de correspondance avec la table `DB_RAPPROCHEMENTS\user`, le libellé de l'écriture est soumise au fichier à certains éléments 
+ du fichier `user_data`. Ces éléments sont 
+ - Instruments
+ - Emprunts
+ - Assurance
+ - Télépéage
+ - Abonnements à échéance fixe
+
+
+(écriture au débit)
+Le fichier user_bank_recurrence récupère la date d'échéance ou de facturation ainsi que le compte comptable correspondant afin de générer l'écriture de la facturation ou de l'échéance et celle du paiement. s'agissant du justificatif, soit il a déjà été fourni et son numéro est récupéré; soit il s'agit d'une facturation mensuelle et on génère un fichier blank pour lequel l'utilisateur devra insérer la facture. 
+
+L'interface NOTIFY affiche une liste de choix dont Saisir la dépense, je ne sais pas, échéance récurrence. 
+Si dépense, on demande la catégorie 
+
+
+
+ (c) assurance
+ (d) télépéage
+ (e) loyers
+ (
   
   
   
@@ -32,3 +51,18 @@ Chaque écriture est soumise à la tabke `DB_RAPPROCHEMENTS\user` par leur monta
   d'accents, de caractères spéciaux, de ponctuations, de chiffres et d'espaces. il est soumis à aux écritures brutes du même type.
   
 En cas de correspondance entre le libellé bancaire et un élément du fichier `user_bank_recurrence`, le fichier appelle 
+
+### v2
+
+- Le montant de l'écriture bancaire est soumis à la table de rapprochement.
+- en cas de correspondance, on génère l'écriture comptable et on l'insère dans DB_ECRITURES. Lorsque l'écriture de rapprochement contient la mention "non-comptabilise", elle est comptabilisé et un justificatif blank est généré.
+- en cas d'échec, on soumet l'écriture à la table user_bank_recurrence. Le libellé est compressé. 
+- En cas de correspondance, on génère l'écriture par l'appel du script correspondant
+- En cas d'echec, on ajoute l'écriture à la table DB_RAPPROCHEMENTS avec la mention "non-comptabilise"
+
+- dans DB_RAPPROCHEMENT, les éléments expirés sont récupérés et ajoutés à DB_NOTIFY; 
+- l'utilisateur accède à la liste des éléments 
+
+
+
+
