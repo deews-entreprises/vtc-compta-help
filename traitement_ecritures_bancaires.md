@@ -1,6 +1,15 @@
 # Traitement des écritures bancaires
 
-# Catégorisation
+## Etapes
+1. category_id ecriture -> /var/auto/categories_ecritures_bancaires.json -> /var/auto/scripts/setEcritureRemarquable.php
+2. bank_description ecriture -> DB_USERS\users\user_bank_recurrence -> /var/auto/scripts/setEcritureRemarquable.php
+3. amount ecriture -> DB_RAPPROCHEMENTS -> /var/auto/scripts/checkRapprochements.php -> DB_NOTIFY\user
+4. La cloche de notification s'affiche sur l'application, donnant accès à la classe Notify.
+5. La classe Notify liste les éléments récupérés dans DB_NOTIFY\user. Chaque élément de la liste est un lien vers une seconde interface
+6. La seconde interface liste les choix de réponses (Donner une catégorie + ajout d'un justificatif + date du justificatif / dépense non déductible / Abonnement ou échéance (appel d'une trosième interface. 
+7. affiche les types d'échéance, la date ...
+8. Traite l'écriture avec les informations et ajoute l'élément dans user_bank_recurrence.
+## Catégorisation
 
 Les écritures bancaires sont récupérés depuis la table `DB_BANK\user` en filtrant les occurrences dont le champ `done` est _false_.
 
@@ -25,7 +34,7 @@ ces éléments sont insérés respectivement dans les tables `DB_ECRITURES\user`
 
 En cas d'absence de correspondance, la ligne est insérée dans la table `DB_RAPPROCHEMENTS\user` avec le champ `non_comptabilise` à _true_. 
 
-# Absence de rapprochement
+## Absence de rapprochement
 
 La table `DB_RAPPROCHEMENTS\user` contient un champ `expire`. Lorsque ce champ est NULL, on lui donne la valeur 3. Il s'agit du nombre de jours au-delà duquel l'écriture sera considérée comme inconnue et devra être clarifiée par l'utilisateur. Ces écritures sont ajoutés à la table `DB_NOTIFY\user` par le script `/var/auto/scripts/checkRapprochement.php`. 
 
