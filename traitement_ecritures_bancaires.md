@@ -100,3 +100,9 @@ Ces données
         85  Retraits
         88  Chèques
         326 Virements internes
+
+
+### COMPRENDRE LE TRAITEMENT DES ECRITURES COMPTABLES
+
+Lors de la configuration de votre compte, vous avez autorisé notre prestataire Bridge API à collecter les écritures bancaires de vos comptes professionnels et à nous les transmettre. Nous sollicition ce partenaire une fois par jour au moyen d'un script autonome pour obtenir vos nouvelles écritures. celles-ci sont sockées dans une base de données qui vous est dédiée. Chaque jour, un autre script autonome récupère les écritures nouvelles et tente de les faire correspondre. les écritures de retrait ou de dépôt d'espèces ainsi que les écriture de services et de charges bancaires ou encore les erreurs bancaires et autres types d'écritures sont reconnues et comptabilsiées sans intervention humaine.  Les écritures que vous aviez auparavent définies comme récurrentes (abonnements, échéances, loyers etc.) sont reconnues et traitées sans intervention humaine, sauf dans le cas où vous aveiez préciser vouloir les confirmer vous-même. Les autres écritures sont confrontées à vos ssaisies deen attente ou à des écritures qui 
+
