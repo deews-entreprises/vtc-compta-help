@@ -1,4 +1,8 @@
-les écritures bancaires à traiter sont celles de la table DB_BANK\user dont la valeur done est `false`. Le montant de l'écriture est soumis à la table rapprochement. 
+les écritures bancaires à traiter sont celles de la table DB_BANK\user dont la valeur done est `false`. 
+
+1. Par le libellé et l'origine, lorsque l'écriture bancaire est un mouvement d'espèces, on effectue une opération 512/53. 
+
+2. Dans le cas contraire, le montant de l'écriture est soumis à la table rapprochement. 
 
 - En cas de correspondance on vérifie la mention "non_comptabilise".
 
@@ -10,7 +14,6 @@ les écritures bancaires à traiter sont celles de la table DB_BANK\user dont la
 - En absence de correspondance, on soumet l'écriture au fichier `user_bank_recurrence`. ce fichier est un tableau d'objet. Chaque objet contient les informations 
 nécessaires pour générer une écriture compteble et son écriture de rapprochement, et de les comptabliser. 
 Les informations contenues dans chaque objet sont les suivantes :
-
 
 ```
   {
